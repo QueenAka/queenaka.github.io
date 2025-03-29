@@ -55,12 +55,10 @@
         </div>
       </div>
       <div class="card songs grower" id="songs">
-        <iframe
-          src="https://whiskers.onrender.com"
-          id="frame"
-          allowfullscreen></iframe>
+        <iframe src="#" id="frame" allowfullscreen></iframe>
       </div>
     </main>
+    <div class="projects"><div class="card project grower"></div></div>
     <script>
       function adjustLogo() {
         const nav = document.querySelector("nav");
@@ -76,13 +74,13 @@
         }
       }
 
-      function resizeSongs() {
+      function resizeThings() {
         const songs = document.getElementById("songs");
         songs.style.height =
           document.querySelector("main").offsetHeight - 30 + "px";
       }
 
-      resizeSongs();
+      resizeThings();
 
       adjustLogo();
       window.addEventListener("resize", adjustLogo);
