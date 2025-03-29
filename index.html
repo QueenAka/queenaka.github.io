@@ -11,7 +11,7 @@
       <div id="items"></div>
     </nav>
     <main>
-      <div class="profile grower">
+      <div class="card profile grower">
         <img src="./media/pfp.png" class="pfp" />
         <div class="username">
           <div class="scrolling-names">
@@ -55,6 +55,12 @@
           stinky furry
         </div>
       </div>
+      <div class="card songs grower" id="songs">
+        <iframe
+          src="https://whiskers.onrender.com"
+          id="frame"
+          allowfullscreen></iframe>
+      </div>
     </main>
     <script>
       function adjustLogo() {
@@ -64,13 +70,20 @@
 
         if (logo && items && nav) {
           const totalWidth = 270 + items.offsetWidth;
-          console.log(totalWidth);
           logo.src =
             totalWidth > nav.offsetWidth
               ? "./media/small.svg"
               : "./media/large.svg";
         }
       }
+
+      function resizeSongs() {
+        const songs = document.getElementById("songs");
+        songs.style.height =
+          document.querySelector("main").offsetHeight - 30 + "px";
+      }
+
+      resizeSongs();
 
       adjustLogo();
       window.addEventListener("resize", adjustLogo);
@@ -109,6 +122,47 @@
 
       updateTime();
       setInterval(updateTime, 5000);
+
+      let key = "AIzaSyA4ZxhkApuvWHxhFybbbYcCUno-dNflWgg";
+      let list = "PLrF3JmCm8j0OQthA_VpRV3RpVy8MrOnWh";
+      async function getPlaylistItems(pageToken = "") {
+        const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${list}&key=${key}&pageToken=${pageToken}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        data.items.forEach((song) => {
+          const name = song.snippet.title;
+          const artist = song.snippet.videoOwnerChannelTitle;
+          const thumb = song.snippet.thumbnails.default.url;
+          const songCard = document.createElement("div");
+          const img = document.createElement("img");
+          const nameSpan = document.createElement("span");
+          const artistSpan = document.createElement("span");
+          songCard.classList.add("song");
+          nameSpan.classList.add("name");
+          artistSpan.classList.add("artist");
+          img.src = thumb;
+          nameSpan.innerText = name;
+          artistSpan.innerText = artist.replace(" - Topic", "");
+          songCard.appendChild(img);
+          songCard.appendChild(nameSpan);
+          songCard.appendChild(artistSpan);
+          songCard.onclick = () => {
+            playSong(song.snippet.resourceId.videoId);
+          };
+          document.getElementById("songs").appendChild(songCard);
+        });
+      }
+
+      getPlaylistItems();
+
+      function playSong(id) {
+        const frame = document.getElementById("frame");
+        frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&loop=1`;
+        frame.classList.add("playing");
+        document
+          .getElementById("songs")
+          .scrollTo({ top: 0, behavior: "smooth" });
+      }
     </script>
   </body>
 </html>

@@ -33,13 +33,18 @@ nav #logo {
   margin: 5px;
 }
 
-main .profile {
+main .card.profile {
+  padding-top: 119px;
+}
+
+main .card {
   width: 430px;
   padding: 10px;
   border-radius: 10px;
   background: var(--tri);
   position: relative;
-  padding-top: 119px;
+  margin: 5px;
+  display: inline-block;
 }
 
 .grower {
@@ -169,4 +174,78 @@ main .profile .bio {
   padding: 5px;
   border-radius: 5px;
   background: var(--sec);
+}
+
+main .songs {
+  height: 206.24px;
+  width: 500px;
+  overflow: auto;
+}
+
+main {
+  display: flex;
+  align-items: center;
+}
+
+main .songs .song {
+  width: calc(100% - 10px);
+  position: relative;
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--sec);
+  margin-bottom: 5px;
+}
+
+main .songs .song {
+  width: calc(100% - 10px);
+  position: relative;
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--sec);
+  margin-bottom: 5px;
+}
+
+main .songs .song img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+main .songs .song .name {
+  position: absolute;
+  font-size: 16px;
+  top: 12px;
+  left: 60px;
+  width: calc(100% - 65px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+main .songs .song .artist {
+  position: absolute;
+  bottom: 12px;
+  left: 60px;
+}
+
+iframe {
+  opacity: 0;
+  width: 0;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+iframe.playing {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  opacity: 1;
+  border: none;
+  margin-bottom: 10px;
 }
