@@ -1,0 +1,344 @@
+:root {
+  --bg: #1E2124;
+  --pri: #c77dff;
+  --sec: #26292E;
+  --tri: #131517;
+  --txt: #eed1ff;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+html {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: monospace;
+  height: calc(100% - 60px);
+  padding: 5px;
+  padding-top: 55px;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--tri);
+  z-index: 500;
+}
+
+nav #logo {
+  width: fit-content;
+  height: 40px;
+  margin: 5px;
+}
+
+main .card.profile {
+  padding-top: 119px;
+}
+
+.card {
+  width: 430px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--tri);
+  position: relative;
+  margin: 5px;
+  display: inline-block;
+}
+
+.grower {
+  transition: transform 0.1s ease-in-out;
+}
+
+.grower:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+}
+
+a.grower:hover {
+  transform: scale(1.1);
+}
+
+main .profile .pfp {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+main .profile .username {
+  width: 200px;
+  height: 32px;
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 120px;
+  overflow: hidden;
+  font-size: 22px;
+}
+
+main .profile .pronouns {
+  height: 18px;
+  display: block;
+  position: absolute;
+  top: 41px;
+  left: 120px;
+  font-size: 18px;
+}
+
+main .profile .time {
+  height: 18px;
+  display: block;
+  position: absolute;
+  top: 63px;
+  left: 120px;
+  font-size: 18px;
+}
+
+main .profile .username::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, var(--tri) 0%, #00000000 100%);
+  width: 200px;
+  height: 7px;
+}
+
+main .profile .username::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(0deg, var(--tri) 0%, #00000000 100%);
+  width: 200px;
+  height: 7px;
+}
+
+main .profile .username .scrolling-names span {
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  width: 100%;
+}
+
+main .profile .flags {
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 85px;
+  left: 117.5px;
+}
+
+main .profile .flags div {
+  height: 22.5px;
+  width: 32px;
+  margin: 2.5px;
+  background-image: var(--img);
+  background-size: cover;
+  border-radius: 5px;
+}
+
+nav #items {
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  mask-image: var(--icon);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  background: var(--txt);
+  margin: 5px;
+}
+
+main .profile .bio {
+  display: block;
+  width: calc(100% - 10px);
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--sec);
+}
+
+main .songs {
+  height: 0;
+  width: 550px;
+  overflow: auto;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+}
+
+main .songs .song {
+  width: calc(100% - 10px);
+  position: relative;
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--sec);
+  margin-bottom: 5px;
+}
+
+main .songs .song {
+  width: calc(100% - 10px);
+  position: relative;
+  height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--sec);
+  margin-bottom: 5px;
+}
+
+main .songs .song img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+main .songs .song .name {
+  position: absolute;
+  font-size: 16px;
+  top: 12px;
+  left: 60px;
+  width: calc(100% - 65px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+main .songs .song .artist {
+  position: absolute;
+  bottom: 12px;
+  left: 60px;
+}
+
+iframe {
+  opacity: 0;
+  width: 0;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 0.1s ease-in-out;
+}
+
+iframe.playing {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  opacity: 1;
+  border: none;
+  margin-bottom: 10px;
+  background: black;
+}
+
+.projects {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.projectsh {
+  margin: auto;
+  position: relative;
+}
+
+.projectsh::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, #00000000 100%);
+  height: calc(100% + 5px);  width: 10px;
+  z-index: 100;
+}
+
+.projectsh::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 0;
+  background: linear-gradient(270deg, var(--bg) 0%, #00000000 100%);
+  height: calc(100% + 5px);
+  width: 10px;
+  z-index: 100;
+}
+
+.project {
+  height: calc(100% - 30px);
+  width: calc(33% - 26.5px);
+  flex: 0 0 auto;
+}
+
+.projectsh a {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  mask-image: var(--icon);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  transition: transform 0.1s ease-in-out;
+  background-color: var(--txt);
+}
+
+.projectsh .left {
+  left: -25px;
+}
+
+.projectsh .right {
+  right: -25px;
+}
+
+.projectsh .left:hover, .projectsh .right:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+*[hover] {
+  position: relative;
+}
+
+*[hover]::before {
+  content: attr(hover);
+  position: absolute;
+  top: -27.5px;
+  left: 50%;
+  width: fit-content;
+  padding: 2.5px 5px;
+  opacity: 0;
+  background: var(--pri);
+  border-radius: 5px;
+  transition: opacity 0.1s ease-in-out;
+  transform: translateX(-50%);
+  font-size: 17px;
+}
+
+*[hover]:hover::before {
+  opacity: 1;
+}
+
+*:focus-visible {
+  outline: 2px var(--pri) solid;
+}
