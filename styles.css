@@ -270,7 +270,8 @@ iframe.playing {
   top: -5px;
   left: 0;
   background: linear-gradient(90deg, var(--bg) 0%, #00000000 100%);
-  height: calc(100% + 5px);  width: 10px;
+  height: calc(100% + 5px);
+  width: 10px;
   z-index: 100;
 }
 
@@ -314,7 +315,8 @@ iframe.playing {
   right: -25px;
 }
 
-.projectsh .left:hover, .projectsh .right:hover {
+.projectsh .left:hover,
+.projectsh .right:hover {
   transform: translateY(-50%) scale(1.2);
 }
 
@@ -409,4 +411,9 @@ iframe.playing {
   border: none;
   border-radius: 5px;
   color: var(--txt);
+  transition: all 0.1s ease-in-out;
+}
+
+.project .buttons button:active {
+  transform: scale(0.98);
 }
