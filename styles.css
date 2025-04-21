@@ -39,6 +39,11 @@ nav {
   z-index: 500;
 }
 
+.mobile-ui nav {
+  width: calc(100% - 20px) !important;
+  padding: 0 10px !important;
+}
+
 nav #logo {
   width: fit-content;
   height: 40px;

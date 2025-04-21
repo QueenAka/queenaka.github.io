@@ -17,9 +17,11 @@ function resizeThings() {
   projects.style.height =
     document.querySelector("main").offsetHeight - 30 + "px";
   projects.style.width = document.querySelector("main").offsetWidth + "px";
-  document.querySelector("nav").style.maxWidth = `${
-    document.querySelector("main").offsetWidth
-  }px`;
+  if (!window.width < document.querySelector("main").offsetWidth)
+    document.querySelector("nav").style.maxWidth = `${
+      document.querySelector("main").offsetWidth
+    }px`;
+  else document.querySelector("nav").style.maxWidth = `100%`;
   document.querySelector("nav").style.padding = `0 calc(50% - ${
     document.querySelector("main").offsetWidth / 2
   }px`;
