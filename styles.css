@@ -83,12 +83,24 @@ main .card.profile {
   transform: scale(1.1);
 }
 
+.grower:active {
+  transform: scale(0.9);
+}
+
 .sgrower:hover {
   transform: scale(1.03);
 }
 
+.sgrower:active {
+  transform: scale(0.97);
+}
+
 .ssgrower:hover {
   transform: scale(1.01);
+}
+
+.ssgrower:active {
+  transform: scale(0.99);
 }
 
 main .profile .pfp {
