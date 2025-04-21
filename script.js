@@ -121,3 +121,15 @@ function projects(dir) {
     behavior: "smooth",
   });
 }
+
+function updateUILayout() {
+  const body = document.body;
+  if (window.innerWidth < 1110) {
+    body.classList.add("mobile-ui");
+  } else {
+    body.classList.remove("mobile-ui");
+  }
+}
+
+updateUILayout();
+window.addEventListener("resize", updateUILayout);
