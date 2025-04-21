@@ -17,6 +17,7 @@ html {
   height: calc(100% - 60px);
   padding: 5px;
   padding-top: 55px;
+  overflow-x: hidden;
 }
 
 body {
@@ -24,6 +25,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 nav {
@@ -42,6 +44,11 @@ nav {
 .mobile-ui nav {
   width: calc(100% - 20px) !important;
   padding: 0 10px !important;
+}
+
+nav #items {
+  width: fit-content;
+  display: flex;
 }
 
 nav #logo {
@@ -68,17 +75,20 @@ main .card.profile {
   width: calc(100% - 30px);
 }
 
-.grower {
+.grower, .sgrower, .ssgrower {
   transition: transform 0.1s ease-in-out;
 }
 
 .grower:hover {
-  transform: scale(1.01);
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.25);
+  transform: scale(1.1);
 }
 
-a.grower:hover {
-  transform: scale(1.1);
+.sgrower:hover {
+  transform: scale(1.03);
+}
+
+.ssgrower:hover {
+  transform: scale(1.01);
 }
 
 main .profile .pfp {
@@ -474,4 +484,5 @@ iframe.playing {
 
 .project .buttons button:active {
   transform: scale(0.98);
+  opacity: 0.9;
 }

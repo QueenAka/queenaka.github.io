@@ -83,6 +83,7 @@ async function getPlaylistItems(pageToken = "") {
     const nameSpan = document.createElement("span");
     const artistSpan = document.createElement("span");
     songCard.classList.add("song");
+    songCard.classList.add("ssgrower");
     nameSpan.classList.add("name");
     artistSpan.classList.add("artist");
     img.src = thumb;
