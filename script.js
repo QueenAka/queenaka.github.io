@@ -109,7 +109,7 @@ getPlaylistItems();
 
 function playSong(id) {
   const frame = document.getElementById("frame");
-  frame.src = `https://www.youtube.com/embed/${id}?autoplay=1&loop=1`;
+  frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&loop=1&rel=0&modestbranding=1`;
   frame.classList.add("playing");
   document.getElementById("songs").scrollTo({ top: 0, behavior: "smooth" });
 }
