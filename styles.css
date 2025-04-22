@@ -397,7 +397,12 @@ iframe.playing {
 
 .projectsh .left:hover,
 .projectsh .right:hover {
-  transform: translateY(-50%) scale(1.2);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.projectsh .left:active,
+.projectsh .right:active {
+  transform: translateY(-50%) scale(0.9);
 }
 
 *[hover] {
