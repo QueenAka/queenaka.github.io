@@ -8,7 +8,6 @@
 
 * {
   scrollbar-width: none;
-  image-rendering: pixelated;
 }
 
 html {
@@ -443,6 +442,7 @@ iframe.playing {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  image-rendering: pixelated;
   display: inline-block;
   margin-left: 5px;
 }
