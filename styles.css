@@ -504,3 +504,17 @@ iframe.playing {
   transform: scale(0.98);
   opacity: 0.9;
 }
+
+.txt-small {
+  font-size: 8px;
+}
+
+.txt-big {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: underline dotted 2px;
+  color: var(--pri);
+}
