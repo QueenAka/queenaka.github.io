@@ -184,6 +184,17 @@ const fuckAssQuotes = [
   "<span class='txt-big'>Big text</span>",
   "<span class='txt-small'>Small text</span>",
   "<a href='https://youtube.com/watch?v=dQw4w9WgXcQ'>Click here for free Aka boobs</a>",
+  "I wear teal and purple for someone who meant the world to me",
+  "I miss you, grandpa",
+  "What the rizz?",
+  "Buy me a SEGA Saturn please 🥺🙏",
+  "Dont be number 3 buddy",
+  "That was quite poggers!",
+  "Milk",
+  "<button>Okay.</button>",
+  "Jar of cheese",
+  "Jack attack the butt crack!",
+  ";",
 ];
 document.getElementById("quote").innerHTML =
   fuckAssQuotes[Math.floor(Math.random() * fuckAssQuotes.length)];
