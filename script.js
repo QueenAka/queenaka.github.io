@@ -195,6 +195,9 @@ const fuckAssQuotes = [
   "Jar of cheese",
   "Jack attack the butt crack!",
   ";",
+  "Chippi chippi chappa chappa",
+  "Slurp",
+  "& Knuckles",
 ];
 document.getElementById("quote").innerHTML =
   fuckAssQuotes[Math.floor(Math.random() * fuckAssQuotes.length)];
