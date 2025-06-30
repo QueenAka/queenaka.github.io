@@ -1,13 +1,14 @@
 :root {
-  --bg: #1E2124;
+  --bg: #1e2124;
   --pri: #c77dff;
-  --sec: #26292E;
+  --sec: #26292e;
   --tri: #131517;
   --txt: #eed1ff;
 }
 
 * {
   scrollbar-width: none;
+  user-select: none;
 }
 
 html {
@@ -75,7 +76,9 @@ main .card.profile {
   width: calc(100% - 30px);
 }
 
-.grower, .sgrower, .ssgrower {
+.grower,
+.sgrower,
+.ssgrower {
   transition: transform 0.1s ease-in-out;
 }
 
@@ -517,4 +520,114 @@ iframe.playing {
 a {
   text-decoration: underline dotted 2px;
   color: var(--pri);
+}
+
+.github {
+  margin: auto;
+  margin-top: 5px;
+  width: 100%;
+  display: block;
+}
+
+.mobile-ui .github {
+  width: calc(100% - 30px);
+  max-width: unset !important;
+}
+
+.github .year-set {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.github .year-set .year {
+  font-size: 20px;
+  width: fit-content;
+}
+
+.github .year-set .button {
+  width: 25px;
+  height: 25px;
+  mask-image: var(--icon);
+  mask-size: 25px;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  transition: transform 0.1s ease-in-out;
+  background-color: var(--txt);
+}
+
+.github .calendar {
+  background: var(--sec);
+  padding: 5px;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.github .calendar .head {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.github .days {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 205px;
+  height: 145px;
+  margin-top: 5px;
+}
+
+.github .days .day {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  z-index: 0;
+}
+
+.github .days .day::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background: var(--pri);
+  border-radius: 2.5px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.lvl-0::before {
+  opacity: 0.1;
+}
+
+.lvl-1::before {
+  opacity: 0.25;
+}
+
+.lvl-2::before {
+  opacity: 0.5;
+}
+
+.lvl-3::before {
+  opacity: 0.75;
+}
+
+.lvl-4::before {
+  opacity: 1;
+}
+
+.github .months {
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
 }

@@ -13,10 +13,13 @@ function adjustLogo() {
 function resizeThings() {
   const songs = document.getElementById("songs");
   const projects = document.getElementById("projects");
+  const github = document.getElementById("github");
   songs.style.height = document.querySelector("main").offsetHeight - 30 + "px";
   projects.style.height =
     document.querySelector("main").offsetHeight - 30 + "px";
   projects.style.width = document.querySelector("main").offsetWidth + "px";
+  github.style.maxWidth =
+    document.querySelector("main").offsetWidth - 30 + "px";
   if (!window.width < document.querySelector("main").offsetWidth)
     document.querySelector("nav").style.maxWidth = `${
       document.querySelector("main").offsetWidth
@@ -201,3 +204,117 @@ const fuckAssQuotes = [
 ];
 document.getElementById("quote").innerHTML =
   fuckAssQuotes[Math.floor(Math.random() * fuckAssQuotes.length)];
+
+let sortedConts;
+let currYear;
+let availableYears = [];
+
+function updateGithub() {
+  fetch("https://github-contributions-api.jogruber.de/v4/queenaka")
+    .then((res) => res.json())
+    .then((data) => {
+      const years = [];
+      for (const year in data.total)
+        if (data.total[year] !== 0) years.push(year);
+
+      availableYears = years.sort();
+      currYear = Math.max(...years.map(Number)).toString();
+
+      const contributions = data.contributions.filter((cont) =>
+        years.some((year) => cont.date.startsWith(year))
+      );
+
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const sorted = {};
+      contributions.forEach((cont) => {
+        const [year, month, day] = cont.date.split("-");
+        const monthName = months[parseInt(month) - 1];
+
+        if (!sorted[year]) sorted[year] = {};
+        if (!sorted[year][monthName]) {
+          sorted[year][monthName] = {
+            contributions: [],
+            count: 0,
+          };
+        }
+
+        sorted[year][monthName].contributions.push(cont);
+        sorted[year][monthName].count += cont.count;
+      });
+
+      sortedConts = sorted;
+      renderYear(currYear);
+    });
+}
+
+function renderYear(year) {
+  const yearDiv = document.getElementById("year");
+  yearDiv.textContent = currYear;
+  const monthsDiv = document.getElementById("months");
+  monthsDiv.innerHTML = "";
+  if (!sortedConts[year]) return;
+  Object.entries(sortedConts[year]).forEach(([monthName, contributions]) => {
+    const month = document.createElement("span");
+    month.textContent = monthName;
+
+    const conts = document.createElement("span");
+    conts.textContent = `${contributions.count}`;
+
+    const calendar = document.createElement("div");
+    calendar.classList.add("calendar");
+    calendar.classList.add("ssgrower");
+
+    const days = document.createElement("div");
+    days.classList.add("days");
+    console.log(contributions);
+
+    contributions.contributions.forEach((cont, i) => {
+      const day = document.createElement("div");
+      day.classList.add("day");
+      day.classList.add(`lvl-${cont.level}`);
+      day.textContent = i + 1;
+      days.appendChild(day);
+    });
+
+    const head = document.createElement("div");
+    head.classList.add("head");
+    head.appendChild(month);
+    head.appendChild(conts);
+
+    calendar.appendChild(head);
+    calendar.appendChild(days);
+    monthsDiv.appendChild(calendar);
+  });
+}
+
+function prevYear() {
+  const index = availableYears.indexOf(currYear);
+  if (index > 0) {
+    currYear = availableYears[index - 1];
+    renderYear(currYear);
+  }
+}
+
+function nextYear() {
+  const index = availableYears.indexOf(currYear);
+  if (index < availableYears.length - 1) {
+    currYear = availableYears[index + 1];
+    renderYear(currYear);
+  }
+}
+
+updateGithub();

@@ -1,4 +1,4 @@
-<!DOCTYPE grower html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta property="og:title" content="Starstruct" />
@@ -13,8 +13,7 @@
       rel="icon"
       href="./media/small.svg"
       sizes="any"
-      type
-      grower="image/svg+xml" />
+      type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
@@ -361,6 +360,20 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="card github" id="github">
+      <div class="year-set">
+        <div
+          class="button grower"
+          style="--icon: url(./media/icons/arrow.svg)"
+          onclick="prevYear()"></div>
+        <div class="year" id="year"></div>
+        <div
+          class="button grower"
+          style="--icon: url(./media/icons/arrow2.svg)"
+          onclick="nextYear()"></div>
+      </div>
+      <div class="months" id="months"></div>
     </div>
     <script src="./script.js"></script>
   </body>
