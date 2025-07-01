@@ -252,6 +252,7 @@ main .songs .song {
   border-radius: 5px;
   background: var(--sec);
   margin-bottom: 5px;
+  overflow: hidden;
 }
 
 main .songs .song img {
@@ -259,6 +260,17 @@ main .songs .song img {
   height: 50px;
   object-fit: cover;
   border-radius: 5px;
+}
+
+main .songs .song .icon {
+  width: 40px;
+  height: 40px;
+  background: var(--txt);
+  mask-image: var(--icon);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  margin: 5px;
 }
 
 main .songs .song .name {
@@ -274,7 +286,7 @@ main .songs .song .name {
 
 main .songs .song .artist {
   position: absolute;
-  bottom: 12px;
+  top: 32px;
   left: 60px;
 }
 

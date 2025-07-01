@@ -11,22 +11,23 @@ function adjustLogo() {
 }
 
 function resizeThings() {
+  const main = document.querySelector("main");
   const songs = document.getElementById("songs");
   const projects = document.getElementById("projects");
   const github = document.getElementById("github");
-  songs.style.height = document.querySelector("main").offsetHeight - 30 + "px";
-  projects.style.height =
-    document.querySelector("main").offsetHeight - 30 + "px";
-  projects.style.width = document.querySelector("main").offsetWidth + "px";
-  github.style.maxWidth =
-    document.querySelector("main").offsetWidth - 30 + "px";
-  if (!window.width < document.querySelector("main").offsetWidth)
-    document.querySelector("nav").style.maxWidth = `${
-      document.querySelector("main").offsetWidth
-    }px`;
+  const activity = document.getElementById("activity");
+  const scratch = document.getElementById("scratch");
+  songs.style.height = main.offsetHeight - 30 + "px";
+  activity.style.height = main.offsetHeight - 30 + "px";
+  projects.style.height = main.offsetHeight - 30 + "px";
+  projects.style.width = main.offsetWidth + "px";
+  github.style.maxWidth = main.offsetWidth - 30 + "px";
+  scratch.style.height = main.offsetHeight - 30 + "px";
+  if (!window.width < main.offsetWidth)
+    document.querySelector("nav").style.maxWidth = `${main.offsetWidth}px`;
   else document.querySelector("nav").style.maxWidth = `100%`;
   document.querySelector("nav").style.padding = `0 calc(50% - ${
-    document.querySelector("main").offsetWidth / 2
+    main.offsetWidth / 2
   }px`;
 }
 
@@ -123,7 +124,7 @@ frame.src = ``;
 
 function projects(dir) {
   document.querySelector(".projects").scrollBy({
-    left: document.querySelector("main").offsetWidth * dir,
+    left: main.offsetWidth * dir,
     behavior: "smooth",
   });
 }
@@ -270,18 +271,13 @@ function renderYear(year) {
   Object.entries(sortedConts[year]).forEach(([monthName, contributions]) => {
     const month = document.createElement("span");
     month.textContent = monthName;
-
     const conts = document.createElement("span");
     conts.textContent = `${contributions.count}`;
-
     const calendar = document.createElement("div");
     calendar.classList.add("calendar");
     calendar.classList.add("ssgrower");
-
     const days = document.createElement("div");
     days.classList.add("days");
-    console.log(contributions);
-
     contributions.contributions.forEach((cont, i) => {
       const day = document.createElement("div");
       day.classList.add("day");
@@ -294,7 +290,6 @@ function renderYear(year) {
     head.classList.add("head");
     head.appendChild(month);
     head.appendChild(conts);
-
     calendar.appendChild(head);
     calendar.appendChild(days);
     monthsDiv.appendChild(calendar);
@@ -318,3 +313,163 @@ function nextYear() {
 }
 
 updateGithub();
+
+function getRecentActivity() {
+  fetch("https://api.github.com/users/queenaka/events")
+    .then((res) => res.json())
+    .then((data) => {
+      const activityDiv = document.getElementById("activity");
+      activityDiv.innerHTML = "";
+      data.forEach((event) => {
+        switch (event.type) {
+          case "PushEvent":
+            event.payload.commits.forEach((commit) => {
+              const commitDiv = document.createElement("div");
+              commitDiv.classList.add("song");
+              commitDiv.classList.add("ssgrower");
+              const nameSpan = document.createElement("span");
+              const messageSpan = document.createElement("span");
+              nameSpan.classList.add("name");
+              nameSpan.textContent = `Pushed to ${event.repo.name}`;
+              messageSpan.classList.add("artist");
+              messageSpan.textContent = commit.message;
+              commitDiv.appendChild(nameSpan);
+              commitDiv.appendChild(messageSpan);
+              const icon = document.createElement("div");
+              icon.classList.add("icon");
+              icon.style = "--icon: url(./media/github/push.svg)";
+              commitDiv.appendChild(icon);
+              activityDiv.appendChild(commitDiv);
+            });
+            break;
+          case "CreateEvent":
+            const createDiv = document.createElement("div");
+            createDiv.classList.add("song");
+            createDiv.classList.add("ssgrower");
+            const nameSpan = document.createElement("span");
+            const messageSpan = document.createElement("span");
+            nameSpan.classList.add("name");
+            nameSpan.textContent = `Created ${event.repo.name}`;
+            messageSpan.classList.add("artist");
+            messageSpan.textContent = `Type: ${event.payload.ref_type}`;
+            createDiv.appendChild(nameSpan);
+            createDiv.appendChild(messageSpan);
+            const icon = document.createElement("div");
+            icon.classList.add("icon");
+            icon.style = "--icon: url(./media/github/create.svg)";
+            createDiv.appendChild(icon);
+            activityDiv.appendChild(createDiv);
+            break;
+          case "IssueCommentEvent":
+            const issueDiv = document.createElement("div");
+            issueDiv.classList.add("song");
+            issueDiv.classList.add("ssgrower");
+            const issueNameSpan = document.createElement("span");
+            const issueMessageSpan = document.createElement("span");
+            issueNameSpan.classList.add("name");
+            issueNameSpan.textContent = `Commented on issue, ${event.repo.name}`;
+            issueMessageSpan.classList.add("artist");
+            issueMessageSpan.textContent = event.payload.comment.body;
+            issueDiv.appendChild(issueNameSpan);
+            issueDiv.appendChild(issueMessageSpan);
+            const issueIcon = document.createElement("div");
+            issueIcon.classList.add("icon");
+            issueIcon.style = "--icon: url(./media/github/comment.svg)";
+            issueDiv.appendChild(issueIcon);
+            activityDiv.appendChild(issueDiv);
+            break;
+          case "PullRequestEvent":
+            const prDiv = document.createElement("div");
+            prDiv.classList.add("song");
+            prDiv.classList.add("ssgrower");
+            const prNameSpan = document.createElement("span");
+            const prMessageSpan = document.createElement("span");
+            prNameSpan.classList.add("name");
+            prNameSpan.textContent = `Pull request, ${event.repo.name}`;
+            prMessageSpan.classList.add("artist");
+            prMessageSpan.textContent = event.payload.pull_request.title;
+            prDiv.appendChild(prNameSpan);
+            prDiv.appendChild(prMessageSpan);
+            const prIcon = document.createElement("div");
+            prIcon.classList.add("icon");
+            prIcon.style = "--icon: url(./media/github/pr.svg)";
+            prDiv.appendChild(prIcon);
+            activityDiv.appendChild(prDiv);
+            break;
+          case "WatchEvent":
+            const watchDiv = document.createElement("div");
+            watchDiv.classList.add("song");
+            watchDiv.classList.add("ssgrower");
+            const watchNameSpan = document.createElement("span");
+            const watchMessageSpan = document.createElement("span");
+            watchNameSpan.classList.add("name");
+            watchNameSpan.textContent = `Watched ${event.repo.name}`;
+            watchMessageSpan.classList.add("artist");
+            watchMessageSpan.textContent = "";
+            watchDiv.appendChild(watchNameSpan);
+            watchDiv.appendChild(watchMessageSpan);
+            const watchIcon = document.createElement("div");
+            watchIcon.classList.add("icon");
+            watchIcon.style = "--icon: url(./media/github/watch.svg)";
+            watchDiv.appendChild(watchIcon);
+            activityDiv.appendChild(watchDiv);
+            break;
+          case "ForkEvent":
+            const forkDiv = document.createElement("div");
+            forkDiv.classList.add("song");
+            forkDiv.classList.add("ssgrower");
+            const forkNameSpan = document.createElement("span");
+            const forkMessageSpan = document.createElement("span");
+            forkNameSpan.classList.add("name");
+            forkNameSpan.textContent = `Forked ${event.repo.name}`;
+            forkMessageSpan.classList.add("artist");
+            forkMessageSpan.textContent = "";
+            forkDiv.appendChild(forkNameSpan);
+            forkDiv.appendChild(forkMessageSpan);
+            const forkIcon = document.createElement("div");
+            forkIcon.classList.add("icon");
+            forkIcon.style = "--icon: url(./media/github/fork.svg)";
+            forkDiv.appendChild(forkIcon);
+            activityDiv.appendChild(forkDiv);
+            break;
+          case "DeleteEvent":
+            const deleteDiv = document.createElement("div");
+            deleteDiv.classList.add("song");
+            deleteDiv.classList.add("ssgrower");
+            const deleteNameSpan = document.createElement("span");
+            const deleteMessageSpan = document.createElement("span");
+            deleteNameSpan.classList.add("name");
+            deleteNameSpan.textContent = `Deleted ${event.repo.name}`;
+            deleteMessageSpan.classList.add("artist");
+            deleteMessageSpan.textContent = `Type: ${event.payload.ref_type}`;
+            deleteDiv.appendChild(deleteNameSpan);
+            deleteDiv.appendChild(deleteMessageSpan);
+            const deleteIcon = document.createElement("div");
+            deleteIcon.classList.add("icon");
+            deleteIcon.style = "--icon: url(./media/github/delete.svg)";
+            deleteDiv.appendChild(deleteIcon);
+            activityDiv.appendChild(deleteDiv);
+            break;
+          default:
+            const unknownDiv = document.createElement("div");
+            unknownDiv.classList.add("song");
+            unknownDiv.classList.add("ssgrower");
+            const unknownNameSpan = document.createElement("span");
+            const unknownMessageSpan = document.createElement("span");
+            unknownNameSpan.classList.add("name");
+            unknownNameSpan.textContent = `Unknown event, ${event.repo.name}`;
+            unknownMessageSpan.classList.add("artist");
+            unknownMessageSpan.textContent = `Type: ${event.type}`;
+            unknownDiv.appendChild(unknownNameSpan);
+            unknownDiv.appendChild(unknownMessageSpan);
+            const unknownIcon = document.createElement("div");
+            unknownIcon.classList.add("icon");
+            unknownIcon.style = "--icon: url(./media/github/unknown.svg)";
+            unknownDiv.appendChild(unknownIcon);
+            activityDiv.appendChild(unknownDiv);
+        }
+      });
+    });
+}
+
+getRecentActivity();
