@@ -49,6 +49,7 @@
     </nav>
     <main>
       <div class="card profile">
+        <div class="label">About Me</div>
         <img
           src="./media/pfp.png"
           class="pfp sgrower"
@@ -91,9 +92,15 @@
           🩷 ꒱꒱ L + A + J + H + S<br />꒰ 🐾 ꒱꒱ Super stinky furry
         </div>
       </div>
-      <div class="card songs" id="activity"></div>
+      <div class="card songs" id="songs">
+        <div class="label">Favorite Songs</div>
+        <div class="songsh" id="songsh">
+          <iframe src="#" id="frame" allowfullscreen></iframe>
+        </div>
+      </div>
     </main>
     <div class="projectsh" id="projects">
+      <div class="label">Projects</div>
       <a
         style="--icon: url(./media/icons/arrow.svg)"
         class="left"
@@ -356,6 +363,7 @@
       </div>
     </div>
     <div class="card github" id="github">
+      <div class="label">GitHub Commit Calander</div>
       <div class="year-set">
         <div
           class="button grower"
@@ -369,12 +377,6 @@
       </div>
       <div class="months" id="months"></div>
     </div>
-    <main>
-      <div class="card songs" id="songs">
-        <iframe src="#" id="frame" allowfullscreen></iframe>
-      </div>
-      <div class="card" id="scratch"></div>
-    </main>
     <script src="./script.js"></script>
   </body>
 </html>

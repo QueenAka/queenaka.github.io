@@ -15,14 +15,10 @@ function resizeThings() {
   const songs = document.getElementById("songs");
   const projects = document.getElementById("projects");
   const github = document.getElementById("github");
-  const activity = document.getElementById("activity");
-  const scratch = document.getElementById("scratch");
   songs.style.height = main.offsetHeight - 30 + "px";
-  activity.style.height = main.offsetHeight - 30 + "px";
   projects.style.height = main.offsetHeight - 30 + "px";
   projects.style.width = main.offsetWidth + "px";
   github.style.maxWidth = main.offsetWidth - 30 + "px";
-  scratch.style.height = main.offsetHeight - 30 + "px";
   if (!window.width < main.offsetWidth)
     document.querySelector("nav").style.maxWidth = `${main.offsetWidth}px`;
   else document.querySelector("nav").style.maxWidth = `100%`;
@@ -106,7 +102,7 @@ async function getPlaylistItems(pageToken = "") {
     };
     songCard.tabIndex = 0;
     if (i == data.items.length - 1) songCard.style.marginBottom = 0;
-    document.getElementById("songs").appendChild(songCard);
+    document.getElementById("songsh").appendChild(songCard);
   });
 }
 
@@ -116,7 +112,7 @@ function playSong(id) {
   const frame = document.getElementById("frame");
   frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&loop=1&rel=0&modestbranding=1`;
   frame.classList.add("playing");
-  document.getElementById("songs").scrollTo({ top: 0, behavior: "smooth" });
+  document.getElementById("songsh").scrollTo({ top: 0, behavior: "smooth" });
 }
 
 const frame = document.getElementById("frame");
@@ -124,7 +120,7 @@ frame.src = ``;
 
 function projects(dir) {
   document.querySelector(".projects").scrollBy({
-    left: main.offsetWidth * dir,
+    left: document.querySelector("main").offsetWidth * dir,
     behavior: "smooth",
   });
 }
@@ -149,6 +145,7 @@ const fuckAssQuotes = [
   "Oh yea, its gambling time",
   "I forgor",
   "So true",
+  "This quote is not slightly tilted",
   "Aka... I'm pregnant...",
   "Chat is this rizz?",
   "Hey sweetness!!",
@@ -189,7 +186,6 @@ const fuckAssQuotes = [
   "<span class='txt-small'>Small text</span>",
   "<a href='https://youtube.com/watch?v=dQw4w9WgXcQ'>Click here for free Aka boobs</a>",
   "I wear teal and purple for someone who meant the world to me",
-  "I miss you, grandpa",
   "What the rizz?",
   "Buy me a SEGA Saturn please 🥺🙏",
   "Dont be number 3 buddy",
@@ -202,6 +198,35 @@ const fuckAssQuotes = [
   "Chippi chippi chappa chappa",
   "Slurp",
   "& Knuckles",
+  "Today class, we’re going to be exploring the brain!",
+  "La la la la la la la la la~",
+  "The fun never ends!",
+  "Gonna getcha!!",
+  "Legally Gay<sup>TM</sup>",
+  "Lesia? More like Stinkia!! 😝",
+  "Mlem",
+  "Fucking melts.",
+  "Are you ready? まじで dreading? それは 無駄だ!",
+  "Let's play a game, for old times sake!",
+  "Llama",
+  "Sex and violence glamorized",
+  "Crincle cut fries",
+  "Copilot lowkey desperate for my love",
+  "My ass hurts. Thanks a lot Avery.",
+  "Milk and cereal!!",
+  "She/her? In this economy?!",
+  "🤓 but make it sexy",
+  "Unspoken rizz or undiagnosed autism?",
+  "sudo rm -rf /*<span class='blink'>|</span>",
+  "Au<sup>79</sup>",
+  "So cool they added me to the API docs",
+  "Bitch Boy Naughty!~",
+  "SKULL EMOJI!! -Matt Rose",
+  "Bitten by a tick boi",
+  "Hey hey hey girl",
+  "One day you'll bury your mother.",
+  "Disleksya",
+  "Skate down my vein with a blade (Cutely)",
 ];
 document.getElementById("quote").innerHTML =
   fuckAssQuotes[Math.floor(Math.random() * fuckAssQuotes.length)];
@@ -313,163 +338,3 @@ function nextYear() {
 }
 
 updateGithub();
-
-function getRecentActivity() {
-  fetch("https://api.github.com/users/queenaka/events")
-    .then((res) => res.json())
-    .then((data) => {
-      const activityDiv = document.getElementById("activity");
-      activityDiv.innerHTML = "";
-      data.forEach((event) => {
-        switch (event.type) {
-          case "PushEvent":
-            event.payload.commits.forEach((commit) => {
-              const commitDiv = document.createElement("div");
-              commitDiv.classList.add("song");
-              commitDiv.classList.add("ssgrower");
-              const nameSpan = document.createElement("span");
-              const messageSpan = document.createElement("span");
-              nameSpan.classList.add("name");
-              nameSpan.textContent = `Pushed to ${event.repo.name}`;
-              messageSpan.classList.add("artist");
-              messageSpan.textContent = commit.message;
-              commitDiv.appendChild(nameSpan);
-              commitDiv.appendChild(messageSpan);
-              const icon = document.createElement("div");
-              icon.classList.add("icon");
-              icon.style = "--icon: url(./media/github/push.svg)";
-              commitDiv.appendChild(icon);
-              activityDiv.appendChild(commitDiv);
-            });
-            break;
-          case "CreateEvent":
-            const createDiv = document.createElement("div");
-            createDiv.classList.add("song");
-            createDiv.classList.add("ssgrower");
-            const nameSpan = document.createElement("span");
-            const messageSpan = document.createElement("span");
-            nameSpan.classList.add("name");
-            nameSpan.textContent = `Created ${event.repo.name}`;
-            messageSpan.classList.add("artist");
-            messageSpan.textContent = `Type: ${event.payload.ref_type}`;
-            createDiv.appendChild(nameSpan);
-            createDiv.appendChild(messageSpan);
-            const icon = document.createElement("div");
-            icon.classList.add("icon");
-            icon.style = "--icon: url(./media/github/create.svg)";
-            createDiv.appendChild(icon);
-            activityDiv.appendChild(createDiv);
-            break;
-          case "IssueCommentEvent":
-            const issueDiv = document.createElement("div");
-            issueDiv.classList.add("song");
-            issueDiv.classList.add("ssgrower");
-            const issueNameSpan = document.createElement("span");
-            const issueMessageSpan = document.createElement("span");
-            issueNameSpan.classList.add("name");
-            issueNameSpan.textContent = `Commented on issue, ${event.repo.name}`;
-            issueMessageSpan.classList.add("artist");
-            issueMessageSpan.textContent = event.payload.comment.body;
-            issueDiv.appendChild(issueNameSpan);
-            issueDiv.appendChild(issueMessageSpan);
-            const issueIcon = document.createElement("div");
-            issueIcon.classList.add("icon");
-            issueIcon.style = "--icon: url(./media/github/comment.svg)";
-            issueDiv.appendChild(issueIcon);
-            activityDiv.appendChild(issueDiv);
-            break;
-          case "PullRequestEvent":
-            const prDiv = document.createElement("div");
-            prDiv.classList.add("song");
-            prDiv.classList.add("ssgrower");
-            const prNameSpan = document.createElement("span");
-            const prMessageSpan = document.createElement("span");
-            prNameSpan.classList.add("name");
-            prNameSpan.textContent = `Pull request, ${event.repo.name}`;
-            prMessageSpan.classList.add("artist");
-            prMessageSpan.textContent = event.payload.pull_request.title;
-            prDiv.appendChild(prNameSpan);
-            prDiv.appendChild(prMessageSpan);
-            const prIcon = document.createElement("div");
-            prIcon.classList.add("icon");
-            prIcon.style = "--icon: url(./media/github/pr.svg)";
-            prDiv.appendChild(prIcon);
-            activityDiv.appendChild(prDiv);
-            break;
-          case "WatchEvent":
-            const watchDiv = document.createElement("div");
-            watchDiv.classList.add("song");
-            watchDiv.classList.add("ssgrower");
-            const watchNameSpan = document.createElement("span");
-            const watchMessageSpan = document.createElement("span");
-            watchNameSpan.classList.add("name");
-            watchNameSpan.textContent = `Watched ${event.repo.name}`;
-            watchMessageSpan.classList.add("artist");
-            watchMessageSpan.textContent = "";
-            watchDiv.appendChild(watchNameSpan);
-            watchDiv.appendChild(watchMessageSpan);
-            const watchIcon = document.createElement("div");
-            watchIcon.classList.add("icon");
-            watchIcon.style = "--icon: url(./media/github/watch.svg)";
-            watchDiv.appendChild(watchIcon);
-            activityDiv.appendChild(watchDiv);
-            break;
-          case "ForkEvent":
-            const forkDiv = document.createElement("div");
-            forkDiv.classList.add("song");
-            forkDiv.classList.add("ssgrower");
-            const forkNameSpan = document.createElement("span");
-            const forkMessageSpan = document.createElement("span");
-            forkNameSpan.classList.add("name");
-            forkNameSpan.textContent = `Forked ${event.repo.name}`;
-            forkMessageSpan.classList.add("artist");
-            forkMessageSpan.textContent = "";
-            forkDiv.appendChild(forkNameSpan);
-            forkDiv.appendChild(forkMessageSpan);
-            const forkIcon = document.createElement("div");
-            forkIcon.classList.add("icon");
-            forkIcon.style = "--icon: url(./media/github/fork.svg)";
-            forkDiv.appendChild(forkIcon);
-            activityDiv.appendChild(forkDiv);
-            break;
-          case "DeleteEvent":
-            const deleteDiv = document.createElement("div");
-            deleteDiv.classList.add("song");
-            deleteDiv.classList.add("ssgrower");
-            const deleteNameSpan = document.createElement("span");
-            const deleteMessageSpan = document.createElement("span");
-            deleteNameSpan.classList.add("name");
-            deleteNameSpan.textContent = `Deleted ${event.repo.name}`;
-            deleteMessageSpan.classList.add("artist");
-            deleteMessageSpan.textContent = `Type: ${event.payload.ref_type}`;
-            deleteDiv.appendChild(deleteNameSpan);
-            deleteDiv.appendChild(deleteMessageSpan);
-            const deleteIcon = document.createElement("div");
-            deleteIcon.classList.add("icon");
-            deleteIcon.style = "--icon: url(./media/github/delete.svg)";
-            deleteDiv.appendChild(deleteIcon);
-            activityDiv.appendChild(deleteDiv);
-            break;
-          default:
-            const unknownDiv = document.createElement("div");
-            unknownDiv.classList.add("song");
-            unknownDiv.classList.add("ssgrower");
-            const unknownNameSpan = document.createElement("span");
-            const unknownMessageSpan = document.createElement("span");
-            unknownNameSpan.classList.add("name");
-            unknownNameSpan.textContent = `Unknown event, ${event.repo.name}`;
-            unknownMessageSpan.classList.add("artist");
-            unknownMessageSpan.textContent = `Type: ${event.type}`;
-            unknownDiv.appendChild(unknownNameSpan);
-            unknownDiv.appendChild(unknownMessageSpan);
-            const unknownIcon = document.createElement("div");
-            unknownIcon.classList.add("icon");
-            unknownIcon.style = "--icon: url(./media/github/unknown.svg)";
-            unknownDiv.appendChild(unknownIcon);
-            activityDiv.appendChild(unknownDiv);
-        }
-      });
-    });
-}
-
-getRecentActivity();
