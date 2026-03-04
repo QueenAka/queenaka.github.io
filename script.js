@@ -227,6 +227,19 @@ const fuckAssQuotes = [
   "One day you'll bury your mother.",
   "Disleksya",
   "Skate down my vein with a blade (Cutely)",
+  "Haiii Shy hai hai hai Shy!!",
+  "This shit is just... so peak...",
+  "Now in 3D!",
+  "I want to have Rewrite Sonic's children",
+  "Some of us wonder if you wanna die",
+  "Meowl supremecy",
+  "Chainsaw man is peak fiction btw",
+  "All your friends are here..!",
+  "I LOVE PIRACY!!",
+  "I hope I've said I love you enough!",
+  "Richard was an officer who stood at 6'3",
+  "Neon lights!!",
+  "Street lights, woah-oh",
 ];
 document.getElementById("quote").innerHTML =
   fuckAssQuotes[Math.floor(Math.random() * fuckAssQuotes.length)];
@@ -247,7 +260,7 @@ function updateGithub() {
       currYear = Math.max(...years.map(Number)).toString();
 
       const contributions = data.contributions.filter((cont) =>
-        years.some((year) => cont.date.startsWith(year))
+        years.some((year) => cont.date.startsWith(year)),
       );
 
       const months = [
